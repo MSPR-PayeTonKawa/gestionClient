@@ -12,7 +12,7 @@
 		3000
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "yarn install",
+	"postCreateCommand": ".devcontainer/postcreate.sh",
 	"runArgs": [
 		"--env-file",
 		".env"
