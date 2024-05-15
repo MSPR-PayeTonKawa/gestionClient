@@ -34,7 +34,10 @@
     "prestart": "npm run rebuild",
     "start": "node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
-    "rebuild": "npm run clean && npm run build"
+    "rebuild": "npm run clean && npm run build",
+    "clean-run": "rimraf dist",
+    "build-test": "npm run clean && tsc",
+    "test-run": "mocha --opts .mocharc.json"
   },
   "repository": {
     "type": "git",
@@ -62,8 +65,12 @@
     "@loopback/eslint-config": "^15.0.1",
     "@loopback/testlab": "^7.0.1",
     "@types/node": "^16.18.95",
+    "chai": "^5.1.1",
     "eslint": "^8.57.0",
+    "mocha": "^10.4.0",
+    "rimraf": "^5.0.7",
     "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.2",
     "typescript": "~5.2.2"
   }
 }
