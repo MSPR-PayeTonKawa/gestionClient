@@ -2,10 +2,13 @@ import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
-import {RestExplorerBindings, RestExplorerComponent} from '@loopback/rest-explorer';
+import {
+  RestExplorerBindings,
+  RestExplorerComponent,
+} from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
-const path = require('path');
 import {MySequence} from './sequence';
+const path = require('path');
 
 export {ApplicationConfig};
 
@@ -28,13 +31,10 @@ export class GestionClientApplication extends BootMixin(
     this.static('/', path.join(__dirname, '../public'));
 
     this.projectRoot = __dirname;
-    // Customize @loopback/boot Booter Conventions here
     this.bootOptions = {
-      controllers: {
-        // Customize ControllerBooter Conventions here
-        dirs: ['controllers'],
-        extensions: ['.controller.js'],
-        nested: true,
+      // Customize Booter Conventions here
+      datasources: {
+        config: path.join(__dirname, 'datasources'),
       },
     };
   }
