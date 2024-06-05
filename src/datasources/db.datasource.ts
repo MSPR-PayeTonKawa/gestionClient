@@ -5,11 +5,11 @@ const config = {
   name: 'db',
   connector: 'postgresql',
   url: '',
-  host: 'localhost',
-  port: 5432,
-  user: 'dbuser',
-  password: 'admin',
-  database: 'dbClient',
+  host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 5432,
+  user: process.env.POSTGRES_USER || 'dbUser',
+  password: process.env.POSTGRES_PASSWORD || 'admin',
+  database: process.env.POSTGRES_DB || 'dbClient',
 };
 
 @lifeCycleObserver('datasource')

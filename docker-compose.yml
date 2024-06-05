@@ -1,4 +1,4 @@
-version: '3'
+name: gestion-clients
 services:
   app:
     build:
@@ -6,14 +6,14 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
+    env_file:
+      - .env
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=postgres://postgres:password@db:5432/mydatabase
 
-  db:
+  db-clients:
+    container_name: db-clients
     image: postgres
-    restart: always
     env_file:
       - .env
     volumes:
