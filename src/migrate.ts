@@ -13,7 +13,7 @@ export async function migrate(args: string[]) {
     await app.boot();
 
     // Migrate the schema
-    await app.migrateSchema({ existingSchema });
+    await app.migrateSchema({existingSchema});
 
     console.log('Schema migration successful');
   } catch (err) {
