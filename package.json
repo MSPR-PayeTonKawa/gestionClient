@@ -56,7 +56,7 @@
     "@loopback/core": "^6.0.1",
     "@loopback/repository": "^7.0.1",
     "@loopback/rest": "^14.0.1",
-    "@loopback/rest-explorer": "^7.0.1",
+    "@loopback/rest-explorer": "^7.0.3",
     "@loopback/service-proxy": "^7.0.1",
     "loopback-connector-postgresql": "^7.1.0",
     "tslib": "^2.0.0"

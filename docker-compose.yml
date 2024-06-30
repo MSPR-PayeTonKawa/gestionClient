@@ -1,14 +1,31 @@
-name: gestion-clients
 services:
   db-clients:
     container_name: db-clients
-    image: postgres
+    image: postgres:latest
     env_file:
       - .env
     volumes:
       - db_data:/var/lib/postgresql/data
+    networks:
+      - payetonkawa-n
+
+  gestion-client:
+    container_name: gestion-client
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
     ports:
-      - 5432:5432
+      - '8082:8080'
+    depends_on:
+      - db-clients
+    networks:
+      - payetonkawa-n
 
 volumes:
   db_data:
+
+networks:
+  payetonkawa-n:
+    external: true
