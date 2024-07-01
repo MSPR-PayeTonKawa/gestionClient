@@ -1,5 +1,8 @@
+import dotenv from 'dotenv';
 import {ApplicationConfig, GestionClientApplication} from './application';
 export * from './application';
+
+dotenv.config();
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new GestionClientApplication(options);

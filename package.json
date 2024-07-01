@@ -58,6 +58,7 @@
     "@loopback/rest": "^14.0.1",
     "@loopback/rest-explorer": "^7.0.3",
     "@loopback/service-proxy": "^7.0.1",
+    "dotenv": "^16.4.5",
     "loopback-connector-postgresql": "^7.1.0",
     "tslib": "^2.0.0"
   },
