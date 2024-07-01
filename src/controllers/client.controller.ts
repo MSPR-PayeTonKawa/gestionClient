@@ -1,3 +1,4 @@
+// src/controllers/client.controller.ts
 import {
   Count,
   CountSchema,
@@ -7,15 +8,14 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
-  response,
 } from '@loopback/rest';
 import {Client} from '../models';
 import {ClientRepository} from '../repositories';
@@ -26,10 +26,13 @@ export class ClientController {
     public clientRepository: ClientRepository,
   ) {}
 
-  @post('/clients')
-  @response(200, {
-    description: 'Client model instance',
-    content: {'application/json': {schema: getModelSchemaRef(Client)}},
+  @post('/clients', {
+    responses: {
+      '200': {
+        description: 'Client model instance',
+        content: {'application/json': {schema: getModelSchemaRef(Client)}},
+      },
+    },
   })
   async create(
     @requestBody({
@@ -37,32 +40,39 @@ export class ClientController {
         'application/json': {
           schema: getModelSchemaRef(Client, {
             title: 'NewClient',
+            exclude: ['id'],
           }),
         },
       },
     })
-    client: Client,
+    client: Omit<Client, 'id'>,
   ): Promise<Client> {
     return this.clientRepository.create(client);
   }
 
-  @get('/clients/count')
-  @response(200, {
-    description: 'Client model count',
-    content: {'application/json': {schema: CountSchema}},
+  @get('/clients/count', {
+    responses: {
+      '200': {
+        description: 'Client model count',
+        content: {'application/json': {schema: CountSchema}},
+      },
+    },
   })
   async count(@param.where(Client) where?: Where<Client>): Promise<Count> {
     return this.clientRepository.count(where);
   }
 
-  @get('/clients')
-  @response(200, {
-    description: 'Array of Client model instances',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'array',
-          items: getModelSchemaRef(Client, {includeRelations: true}),
+  @get('/clients', {
+    responses: {
+      '200': {
+        description: 'Array of Client model instances',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(Client, {includeRelations: true}),
+            },
+          },
         },
       },
     },
@@ -71,10 +81,13 @@ export class ClientController {
     return this.clientRepository.find(filter);
   }
 
-  @patch('/clients')
-  @response(200, {
-    description: 'Client PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
+  @patch('/clients', {
+    responses: {
+      '200': {
+        description: 'Client PATCH success count',
+        content: {'application/json': {schema: CountSchema}},
+      },
+    },
   })
   async updateAll(
     @requestBody({
@@ -90,12 +103,15 @@ export class ClientController {
     return this.clientRepository.updateAll(client, where);
   }
 
-  @get('/clients/{id}')
-  @response(200, {
-    description: 'Client model instance',
-    content: {
-      'application/json': {
-        schema: getModelSchemaRef(Client, {includeRelations: true}),
+  @get('/clients/{id}', {
+    responses: {
+      '200': {
+        description: 'Client model instance',
+        content: {
+          'application/json': {
+            schema: getModelSchemaRef(Client, {includeRelations: true}),
+          },
+        },
       },
     },
   })
@@ -107,9 +123,12 @@ export class ClientController {
     return this.clientRepository.findById(id, filter);
   }
 
-  @patch('/clients/{id}')
-  @response(204, {
-    description: 'Client PATCH success',
+  @patch('/clients/{id}', {
+    responses: {
+      '204': {
+        description: 'Client PATCH success',
+      },
+    },
   })
   async updateById(
     @param.path.number('id') id: number,
@@ -125,9 +144,12 @@ export class ClientController {
     await this.clientRepository.updateById(id, client);
   }
 
-  @put('/clients/{id}')
-  @response(204, {
-    description: 'Client PUT success',
+  @put('/clients/{id}', {
+    responses: {
+      '204': {
+        description: 'Client PUT success',
+      },
+    },
   })
   async replaceById(
     @param.path.number('id') id: number,
@@ -136,9 +158,12 @@ export class ClientController {
     await this.clientRepository.replaceById(id, client);
   }
 
-  @del('/clients/{id}')
-  @response(204, {
-    description: 'Client DELETE success',
+  @del('/clients/{id}', {
+    responses: {
+      '204': {
+        description: 'Client DELETE success',
+      },
+    },
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.clientRepository.deleteById(id);

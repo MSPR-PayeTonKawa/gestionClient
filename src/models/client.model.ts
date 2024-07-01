@@ -1,3 +1,4 @@
+// src/models/client.model.ts
 import {Entity, model, property} from '@loopback/repository';
 
 @model()
@@ -11,13 +12,15 @@ export class Client extends Entity {
 
   @property({
     type: 'string',
+    required: true,
   })
-  name?: string;
+  name: string;
 
   @property({
     type: 'string',
+    required: true,
   })
-  email?: string;
+  email: string;
 
   @property({
     type: 'string',
