@@ -1,5 +1,5 @@
-// src/models/client.model.ts
 import {Entity, model, property} from '@loopback/repository';
+import {sendClientEvent} from '../kafka/kafka-producer';
 
 @model()
 export class Client extends Entity {
@@ -34,6 +34,12 @@ export class Client extends Entity {
 
   constructor(data?: Partial<Client>) {
     super(data);
+    if (data && data.id && data.name) {
+      // Assurez-vous d'avoir les informations nécessaires pour envoyer l'événement
+      sendClientEvent(data.id, data.name, 'your-password-here')
+        .then(() => console.log('Event sent'))
+        .catch(err => console.error('Error sending event', err));
+    }
   }
 }
 
