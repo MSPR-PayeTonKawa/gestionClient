@@ -14,13 +14,13 @@ export class Client extends Entity {
     type: 'string',
     required: true,
   })
-  name: string;
+  name!: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  email: string;
+  email!: string;
 
   @property({
     type: 'string',
@@ -34,7 +34,11 @@ export class Client extends Entity {
 
   constructor(data?: Partial<Client>) {
     super(data);
-    if (data && data.id && data.name) {
+    if (data) {
+      this.name = data.name ?? '';
+      this.email = data.email ?? '';
+    }
+    if (data?.id && data?.name) {
       // Assurez-vous d'avoir les informations nécessaires pour envoyer l'événement
       sendClientEvent(data.id, data.name, 'your-password-here')
         .then(() => console.log('Event sent'))

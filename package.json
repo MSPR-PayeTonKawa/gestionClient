@@ -22,7 +22,7 @@
     "eslint": "lb-eslint --report-unused-disable-directives .",
     "eslint:fix": "npm run eslint -- --fix",
     "pretest": "npm run rebuild",
-    "test": "mocha -r ts-node/register 'src/**/*.test.ts'",
+    "test": "ts-mocha src/**/*.test.ts",
     "posttest": "npm run lint",
     "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
     "docker:build": "docker build -t gestion-client .",
@@ -76,6 +76,7 @@
     "rimraf": "^5.0.7",
     "sinon": "^18.0.0",
     "source-map-support": "^0.5.21",
+    "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.2",
     "typescript": "~5.2.2"
   }
