@@ -1,31 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gestion-client
+  name: clients-database-deployment
   namespace: payetonkawa-prod
-  labels:
-    app: gestion-client
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gestion-client
+      app: clients-database
   template:
     metadata:
       labels:
-        app: gestion-client
+        app: clients-database
     spec:
       containers:
-        - name: gestion-client
-          image: registry.germainleignel.com/paye-ton-kawa/gestion-client:latest
+        - name: clients-database
+          image: postgres:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 5432
           envFrom:
             - secretRef:
                 name: clients-secrets
           resources:
             limits:
-              cpu: "500m"
+              cpu: "1"
               memory: "512Mi"
             requests:
               cpu: "100m"

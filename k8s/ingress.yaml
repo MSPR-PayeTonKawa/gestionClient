@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gestion-client-ingress
+  namespace: payetonkawa-prod
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.middlewares: payetonkawa-prod-auth-forward@kubernetescrd
+spec:
+  tls:
+    - hosts:
+        - gestion-client.germainleignel.com
+      secretName: payetonkawa-certificate
+  rules:
+    - host: gestion-client.germainleignel.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gestion-client-service
+                port:
+                  number: 80
