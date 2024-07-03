@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gestion-client
+  name: gestion-clients-deployment
   namespace: payetonkawa-prod
   labels:
     app: gestion-client
