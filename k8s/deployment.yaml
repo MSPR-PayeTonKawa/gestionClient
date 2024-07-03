@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gestion-produits-deployment
+  namespace: payetonkawa-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gestion-produits-service
+  template:
+    metadata:
+      labels:
+        app: gestion-produits-service
+    spec:
+      containers:
+        - name: gestion-produits-container
+          image: registry.germainleignel.com/paye-ton-kawa/gestion-produits:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: gestion-produits-secrets
+          env:
+            - name: ENV
+              value: "production"
+            - name: DATABASE_HOST
+              value: "db-clients.payetonkawa-prod.svc.cluster.local"
+            - name: DATABASE_PORT
+              value: "5432"
+            - name: KAFKA_BROKERS
+              value: "kafka.payetonkawa-prod.svc.cluster.local:9092"
+            - name: KAFKA_CONSUMER_GROUP
+              value: "client-consumer"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gestion-produits-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gestion-produits-secrets
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: gestion-produits-secrets
+                  key: POSTGRES_DB
+          resources:
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
