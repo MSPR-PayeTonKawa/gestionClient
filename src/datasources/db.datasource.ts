@@ -1,13 +1,12 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
 
-
 export const config = {
   name: 'db',
   connector: 'postgresql',
   url: '',
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
+  host: process.env.DATABASE_HOST,
+  port: process.env.DATABASE_PORT,
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
