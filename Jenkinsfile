@@ -91,7 +91,7 @@ pipeline {
       steps {
         sshagent(credentials: ['produits']) {
           script {
-            def sshCommand = 'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null gmn@176.189.118.208 "/home/gmn/scripts/deploy.sh /home/gmn/apps/payetonkawa/gestionClients gestion-clients-deployment payetonkawa-prod"'
+            def sshCommand = 'ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null gmn@176.189.118.208 "/home/gmn/scripts/deploy.sh /home/gmn/apps/payetonkawa/gestionClient gestion-clients-deployment payetonkawa-prod"'
             def deployOutput = sh(script: sshCommand, returnStdout: true).trim()
             echo "Deployment output:\n${deployOutput}"
           }
