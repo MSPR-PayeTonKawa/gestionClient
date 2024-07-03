@@ -62,7 +62,7 @@ pipeline {
         stage('Test') {
       steps {
         container('nodejs') {
-          sh 'npm test'
+          sh 'npm run test'
         }
       }
         }
